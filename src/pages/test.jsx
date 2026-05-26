@@ -1,41 +1,29 @@
 import { useState } from "react";
-import { DiAndroid } from "react-icons/di";
+import uploadMedia from "../../utils/mediaUpload";
 
 export default function TestPage() {
-  const [emotion, setEmotion] = useState("😊");
+  const [file, setFile] = useState(null);
+
+  async function handleUpload() {
+
+
+    try {
+      const url = await uploadMedia(file);
+      console.log(url);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center bg-primary text-secondary ">
-      <div className="w-[400px] h-[400px] border-[5px] flex justify-center items-center text-5xl">
-        {emotion}
-      </div>
-
-      <div className="w-[300px] flex flex-row justify-center">
-        <button
-          onClick={() => {
-            setEmotion("😢");
-          }}
-          className="bg-accent w-[70px] h-[40px] text-white border border-primary"
-        >
-          sad
-        </button>
-        <button
-          onClick={() => {
-            setEmotion("😊");
-          }}
-          className="bg-accent w-[70px] h-[40px] text-white border border-primary"
-        >
-          happy
-        </button>
-        <button
-          onClick={() => {
-            setEmotion("😠");
-          }}
-          className="bg-accent w-[70px] h-[40px] text-white border border-primary"
-        >
-          angry
-        </button>
-      </div>
+      <input onChange={(e) => setFile(e.target.files[0])} type="file" />
+      <button
+        onClick={handleUpload}
+        className="bg-accent text-white px-4 py-2 rounded-md"
+      >
+        Upload
+      </button>
     </div>
   );
 }
