@@ -34,7 +34,7 @@ export default function LoginPage() {
         toast.error(error.response.data.message);
       });
   }
- 
+
   return (
     <div className='w-full h-screen flex justify-center items-center bg-[url("login-bg.jpg")] bg-center bg-cover'>
       <div className="w-1/2 h-full"></div>

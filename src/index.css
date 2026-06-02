@@ -3,5 +3,29 @@
 @theme {
   --color-primary: #f4f4f4;
   --color-secondary: #30364f;
-  --color-accent: #524bff;
+  --color-accent: #2563eb;
+}
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px; /* vertical scrollbar width */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* track color */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* scrollbar color */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #585858; /* hover color */
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin; /* auto | thin | none */
+  scrollbar-color: #888 transparent; /* thumb color | track color */
 }
