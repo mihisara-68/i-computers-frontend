@@ -49,13 +49,6 @@ export default function AdminAddProductPage() {
                 isAvailable: isAvailable
             };
 
-            console.log("productId:", productId);
-            console.log("name:", name);
-            console.log("altNames:", altNames);
-            console.log("price:", price);
-            console.log("urls:", urls);
-            console.log("productData:", productData);
-
             await axios.post(import.meta.env.VITE_API_URL + "/products", productData,
                 {
                     headers: {

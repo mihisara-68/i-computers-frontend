@@ -9,8 +9,6 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   function handleLogin() {
-    console.log("Email:", email);
-    console.log("Password:", password);
 
     axios.post(import.meta.env.VITE_API_URL + "/users/login", {
       email,
