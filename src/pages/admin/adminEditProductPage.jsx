@@ -1,22 +1,23 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import uploadMedia from "../../../utils/mediaUpload";
 
-export default function AdminAddProductPage() {
-    const [productId, setProductId] = useState("");
-    const [name, setName] = useState("");
-    const [altNames, setAltNames] = useState([]);
-    const [price, setPrice] = useState("");
-    const [labelledPrice, setLabelledPrice] = useState("");
-    const [category, setCategory] = useState("Laptop");
+export default function AdminEditProductPage() {
+    const location = useLocation();
+    const [productId, setProductId] = useState(location.state?.productId || "");
+    const [name, setName] = useState(location.state?.name || "");
+    const [altNames, setAltNames] = useState(location.state?.altNames ? location.state.altNames.join(",") : []);
+    const [price, setPrice] = useState(location.state?.price || "");
+    const [labelledPrice, setLabelledPrice] = useState(location.state?.labelledPrice || "");
+    const [category, setCategory] = useState(location.state?.category || "");
     const [images, setImages] = useState([]);
-    const [description, setDescription] = useState("");
-    const [brand, setBrand] = useState("Apple");
-    const [model, setModel] = useState("");
-    const [stock, setStock] = useState("");
-    const [isAvailable, setIsAvailable] = useState(true);
+    const [description, setDescription] = useState(location.state?.description || "");
+    const [brand, setBrand] = useState(location.state?.brand || "");
+    const [model, setModel] = useState(location.state?.model || "");
+    const [stock, setStock] = useState(location.state?.stock || "");
+    const [isAvailable, setIsAvailable] = useState(location.state?.isAvailable || "");
     const navigate = useNavigate();
 
     async function handleSave() {
@@ -68,13 +69,13 @@ export default function AdminAddProductPage() {
     return (
         <div className="w-full h-full flex flex-col items-center p-4 overflow-y-scroll">
             <div className="sticky top-0 w-full h-[100px] shadow-md bg-white text-black rounded-lg flex items-center justify-between p-4">
-                <h1 className="text-2xl font-semibold">Add New Product</h1>
+                <h1 className="text-2xl font-semibold">Edit Product</h1>
                 <div className=" flex gap-4">
                     <button onClick={() => navigate("/admin/products")} className="px-5 py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 transition font-medium">
                         Cancel
                     </button>
                     <button onClick={handleSave} className="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition font-medium shadow-md">
-                        Save
+                        update
                     </button>
                 </div>
             </div>

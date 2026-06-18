@@ -1,4 +1,4 @@
-import { Route,Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import AdminPage from './pages/adminPage'
 import HomePage from './pages/homePage'
@@ -12,8 +12,8 @@ function App() {
   return (
 
     <div className='w-full h-screen flex justify-center items-center bg-primary text-secondary ' >
-      <Toaster position="top-left"/> 
-      <Routes>  
+      <Toaster position="top-center" />
+      <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/admin/*' element={<AdminPage />} />
         <Route path='/products' element={<ProductsPage />} />
