@@ -26,14 +26,15 @@ export default function ProductDeleteModel(props) {
     }
     return (
         <>
-            <TbTrash className="text-2xl text-red-500 cursor-pointer hover:text-red-700"
-                onClick={
-                    () => {
-                        setIsModelOpen(true)
-
-                    }
-                }
-            />
+            <div
+                onClick={() => setIsModelOpen(true)}
+                className="ml-1 group inline-flex items-center justify-center w-8 h-8 rounded-xl border border-slate-200 bg-white hover:bg-red-50 hover:border-red-300 transition-all duration-300 cursor-pointer"
+            >
+                <TbTrash
+                    size={20}
+                    className="text-red-500 group-hover:scale-110 transition-transform duration-300"
+                />
+            </div>
             {isModelOpen &&
                 <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50 text-secondary">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-80">

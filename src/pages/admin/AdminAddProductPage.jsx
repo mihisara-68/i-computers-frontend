@@ -18,9 +18,11 @@ export default function AdminAddProductPage() {
     const [stock, setStock] = useState("");
     const [isAvailable, setIsAvailable] = useState(true);
     const navigate = useNavigate();
+    const [isSaving, setIsSaving] = useState(false);
 
     async function handleSave() {
         try {
+            setIsSaving(true);
             const token = localStorage.getItem("token");
             if (token == null) {
                 toast.error("You must be logged in to perform this action.");
@@ -60,6 +62,7 @@ export default function AdminAddProductPage() {
             navigate("/admin/products");
 
         } catch (error) {
+            setIsSaving(false);
             console.error("Error saving product:", error);
             console.error("Error response:", error?.response);
             toast.error(error?.response?.data?.message || "Failed to save product. Please try again.");
@@ -73,8 +76,8 @@ export default function AdminAddProductPage() {
                     <button onClick={() => navigate("/admin/products")} className="px-5 py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 transition font-medium">
                         Cancel
                     </button>
-                    <button onClick={handleSave} className="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition font-medium shadow-md">
-                        Save
+                    <button onClick={handleSave} disabled={isSaving} className="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition font-medium shadow-md">
+                        {isSaving ? "Saving..." : "Save Product"}
                     </button>
                 </div>
             </div>
@@ -138,9 +141,30 @@ export default function AdminAddProductPage() {
                     >
                         <option value="Laptop">Laptop</option>
                         <option value="Desktop">Desktop</option>
+                        <option value="Processor">Processor</option>
+                        <option value="Graphics Card">Graphics Card</option>
+                        <option value="Motherboard">Motherboard</option>
+                        <option value="RAM">RAM</option>
+                        <option value="Storage">Storage</option>
+                        <option value="SSD">SSD</option>
+                        <option value="HDD">HDD</option>
+                        <option value="Power Supply">Power Supply</option>
+                        <option value="Monitor">Monitor</option>
+                        <option value="Keyboard">Keyboard</option>
+                        <option value="Mouse">Mouse</option>
+                        <option value="Headset">Headset</option>
+                        <option value="Speaker">Speaker</option>
+                        <option value="Webcam">Webcam</option>
+                        <option value="Microphone">Microphone</option>
+                        <option value="Printer">Printer</option>
+                        <option value="Networking">Networking</option>
+                        <option value="Router">Router</option>
+                        <option value="Cooling">Cooling</option>
+                        <option value="PC Case">PC Case</option>
                         <option value="Tablet">Tablet</option>
                         <option value="Smartphone">Smartphone</option>
                         <option value="Accessory">Accessory</option>
+                        <option value="Software">Software</option>
                         <option value="Other">Other</option>
                     </select>
                 </div>

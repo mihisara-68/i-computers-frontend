@@ -17,11 +17,13 @@ export default function AdminEditProductPage() {
     const [brand, setBrand] = useState(location.state?.brand || "");
     const [model, setModel] = useState(location.state?.model || "");
     const [stock, setStock] = useState(location.state?.stock || "");
-    const [isAvailable, setIsAvailable] = useState(location.state?.isAvailable || "");
+    const [isAvailable, setIsAvailable] = useState(location.state?.isAvailable ? true : false);
+    const [isUpdating, setIsUpdating] = useState(false);
     const navigate = useNavigate();
 
-    async function handleSave() {
+    async function handleUpdate() {
         try {
+            setIsUpdating(true);
             const token = localStorage.getItem("token");
             if (token == null) {
                 toast.error("You must be logged in to perform this action.");
@@ -50,20 +52,25 @@ export default function AdminEditProductPage() {
                 isAvailable: isAvailable
             };
 
-            await axios.post(import.meta.env.VITE_API_URL + "/products", productData,
+            if (urls.length == 0) {
+                productData.images = location.state.images;
+            }
+
+            await axios.put(import.meta.env.VITE_API_URL + "/products/" + productId, productData,
                 {
                     headers: {
                         "Authorization": "Bearer " + token
                     }
                 });
             console.log(import.meta.env.VITE_API_URL)
-            toast.success("Product saved successfully!");
+            toast.success("Product updated successfully!");
             navigate("/admin/products");
 
         } catch (error) {
-            console.error("Error saving product:", error);
+            setIsUpdating(false);
+            console.error("Error updating product:", error);
             console.error("Error response:", error?.response);
-            toast.error(error?.response?.data?.message || "Failed to save product. Please try again.");
+            toast.error(error?.response?.data?.message || "Failed to update product. Please try again.");
         }
     }
     return (
@@ -74,8 +81,8 @@ export default function AdminEditProductPage() {
                     <button onClick={() => navigate("/admin/products")} className="px-5 py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 transition font-medium">
                         Cancel
                     </button>
-                    <button onClick={handleSave} className="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition font-medium shadow-md">
-                        update
+                    <button onClick={handleUpdate} disabled={isUpdating} className="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition font-medium shadow-md">
+                        Update
                     </button>
                 </div>
             </div>
@@ -85,7 +92,7 @@ export default function AdminEditProductPage() {
                     <input
                         className="border border-gray-300 p-2 rounded-md shadow-md w-full"
                         value={productId}
-                        placeholder="Enter product ID"
+                        disabled={true}
                         onChange={(e) => setProductId(e.target.value)}
                     />
                 </div>
@@ -139,9 +146,30 @@ export default function AdminEditProductPage() {
                     >
                         <option value="Laptop">Laptop</option>
                         <option value="Desktop">Desktop</option>
+                        <option value="Processor">Processor</option>
+                        <option value="Graphics Card">Graphics Card</option>
+                        <option value="Motherboard">Motherboard</option>
+                        <option value="RAM">RAM</option>
+                        <option value="Storage">Storage</option>
+                        <option value="SSD">SSD</option>
+                        <option value="HDD">HDD</option>
+                        <option value="Power Supply">Power Supply</option>
+                        <option value="Monitor">Monitor</option>
+                        <option value="Keyboard">Keyboard</option>
+                        <option value="Mouse">Mouse</option>
+                        <option value="Headset">Headset</option>
+                        <option value="Speaker">Speaker</option>
+                        <option value="Webcam">Webcam</option>
+                        <option value="Microphone">Microphone</option>
+                        <option value="Printer">Printer</option>
+                        <option value="Networking">Networking</option>
+                        <option value="Router">Router</option>
+                        <option value="Cooling">Cooling</option>
+                        <option value="PC Case">PC Case</option>
                         <option value="Tablet">Tablet</option>
                         <option value="Smartphone">Smartphone</option>
                         <option value="Accessory">Accessory</option>
+                        <option value="Software">Software</option>
                         <option value="Other">Other</option>
                     </select>
                 </div>
